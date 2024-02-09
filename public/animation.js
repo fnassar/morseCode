@@ -84,6 +84,7 @@ let prevRadius = 10;
 let angle = 0;
 let dir = 1;
 let paused = true;
+let framesCurrent = 0;
 
 function preload() {
     song = loadSound("audio.mp3");
@@ -105,6 +106,12 @@ function setup() {
 
 async function draw() {
     if (radius > height / 2 + 10 || letterCount >= messageMorse.length) {
+        if (framesCurrent < 500) {
+            framesCurrent++;
+            return;
+        }
+        framesCurrent = 0;
+        // setTimeout(pause, 10000);
         next_message = await update_message();
         messageMorse = convertToMorse(next_message.post);
         delete_message(next_message._id);
@@ -226,7 +233,7 @@ function animation(displayText, name) {
         hu++;
         pop();
         // write name in low opacity at the top of the bowl
-        let radius_text = height / 4; // Adjust the radius_text as needed
+        let radius_text = height / 3; // Adjust the radius_text as needed
         textAlign(CENTER, CENTER);
         textSize(30);
         fill(150, 150, 150);
