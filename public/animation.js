@@ -188,6 +188,7 @@ async function update_message() {
         return curr_Data;
     } catch (error) {
         console.error("Error fetching data: ", error);
+        return default_next_message;
         // Handle errors here
     }
 }
