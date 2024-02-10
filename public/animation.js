@@ -54,6 +54,7 @@ const texttoMorse = {
     "+": ".-.-.",
     _: "..--.-",
 };
+
 let defaultMessage =
     "Love is what prevents tongues from speaking,, it is better for lover to announce what is burning inside his chest, I wish the beloved who without guilt abandoned me, as sleeping abandoned my eyelids, would visit me as my sickness did, We parted, you could not describe our face, you would not know what colors we have due to pain, Our breaths were so blazing that I pitied the righteous burning between us, I redeem myself for this beloved woman who has bid farewell, whenever I looked at her once, I exhaled twice, I denied the misfortunes of the eternity once, then I admitted it, until it became a habit for me, I traveled through the world and far lands until my camels were tired, and my days and nights were ruined, I stopped that travelling when the generosity of Badr ibn Ammar prevented me from going on, and their, I reached everything I had ever wished for, No bowl can accommodate the majesty of Abi Al-Hussein's generosity, even if the bowl has been as wide as time, He ignored mentioning his bravery because it was well known, and Talking about it made even the coward brave";
 
