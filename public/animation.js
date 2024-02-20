@@ -60,6 +60,7 @@ let defaultMessage =
 
 // let centerX, centerY, radius, prevRadius, angle, dir, letterCount, letterSize;
 let song;
+let morse_sound;
 let img;
 let colors;
 let play;
@@ -78,7 +79,7 @@ let width = window.innerWidth - 10;
 let starting_frame = 0;
 let letterSize = 1;
 let letterCount = 0;
-let centerX = width / 2;
+let centerX = height / 2;
 let centerY = height / 2;
 let radius = 10;
 let prevRadius = 10;
@@ -89,12 +90,15 @@ let framesCurrent = 0;
 
 function preload() {
     song = loadSound("audio.mp3");
+    morse_sound = loadSound("morse.mp3");
     img = loadImage("bg.png");
 }
+let myCanvas;
 
 function setup() {
+    myCanvas = createCanvas(height, height);
+    myCanvas.parent("canvas");
     imageMode(CENTER);
-    createCanvas(width, height);
     colorMode(HSB, 255);
     background(220);
     textAlign(CENTER, CENTER);
@@ -123,6 +127,7 @@ async function draw() {
 
     if (!song.isPlaying() && !paused) {
         song.play();
+        morse_sound.play();
     }
 }
 
@@ -138,12 +143,20 @@ function convertToMorse(text) {
     }
     return morse;
 }
+function takeScreenshot(email, name) {
+    // take screenshot and save it of only height*height in the center of the canvas
+    let imgWidth = height * (img.width / img.height);
+    let imgHeight = height;
+    saveCanvas(myCanvas, "screenshot" + name + "_" + "email", "png");
+
+}
+
 function reset_animation() {
     // reset all variables
     starting_frame = 0;
     letterSize = 1;
     letterCount = 0;
-    centerX = width / 2;
+    centerX = height / 2;
     centerY = height / 2;
     radius = 10;
     prevRadius = 10;
@@ -161,7 +174,7 @@ function dispImg() {
     let imgWidth = height * (img.width / img.height);
     let imgHeight = height;
     // image height offset
-    image(img, width / 2, height / 2, imgWidth, imgHeight);
+    image(img, height / 2 - 3, height / 2, imgWidth, imgHeight);
 }
 
 async function update_message() {
@@ -180,6 +193,7 @@ async function update_message() {
         } else {
             console.log("curr_Data: ", curr_Data);
         }
+        takeScreenshot(curr_Data.email, curr_Data.name);
         reset_animation();
 
         console.log("reading: ", curr_Data.post);
@@ -234,14 +248,14 @@ function animation(displayText, name) {
         text(letter, 0, 0);
         hu++;
         pop();
-        // write name in low opacity at the top of the bowl
-        let radius_text = height / 3; // Adjust the radius_text as needed
+        // write name in at the top of the bowl
+        let radius_text = height / 2.5; // Adjust the radius_text as needed
         textAlign(CENTER, CENTER);
         textSize(30);
         fill(150, 150, 150);
 
         push();
-        translate(width / 2, height / 2);
+        translate(centerX, centerY);
 
         let totalLetters = name.length;
         let angleStep = PI / totalLetters; // Half of the circle
@@ -265,11 +279,13 @@ function animation(displayText, name) {
 function keyPressed() {
     if (keyCode === "P".charCodeAt(0) && !paused) {
         song.pause();
+        morse_sound.pause();
         pause();
         console.log("paused");
     } else if (keyCode === "R".charCodeAt(0) && paused) {
         if (!song.isPlaying()) {
             song.play();
+            morse_sound.play();
         }
         pause();
         console.log("resumed");
