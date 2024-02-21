@@ -61,6 +61,8 @@ let defaultMessage =
 // let centerX, centerY, radius, prevRadius, angle, dir, letterCount, letterSize;
 let song;
 let morse_sound;
+let poem;
+let song_flag = 0;
 let img;
 let colors;
 let play;
@@ -91,6 +93,7 @@ let framesCurrent = 0;
 function preload() {
     song = loadSound("audio.mp3");
     morse_sound = loadSound("morse.mp3");
+    poem = loadSound("poem.mp3");
     img = loadImage("bg.png");
 }
 let myCanvas;
@@ -125,9 +128,18 @@ async function draw() {
         animation(messageMorse, next_message.name);
     }
 
-    if (!song.isPlaying() && !paused) {
-        song.play();
-        morse_sound.play();
+    if (!song.isPlaying() && !poem.isPlaying() && !paused) {
+        if (song_flag === 1) {
+            song.play();
+            morse_sound.play();
+            song_flag = 0;
+            console.log("playing song");
+        }
+        else {
+            poem.play();
+            song_flag = 1;
+            console.log("playing poem");
+        }
     }
 }
 
@@ -147,7 +159,9 @@ function takeScreenshot(email, name) {
     // take screenshot and save it of only height*height in the center of the canvas
     let imgWidth = height * (img.width / img.height);
     let imgHeight = height;
-    saveCanvas(myCanvas, "screenshot" + name + "_" + "email", "png");
+    if (name != "Abū al-Ṭayyib Al-Mutanabbī" && email != "default") {
+        saveCanvas(myCanvas, + name + "_" + email, "png");
+    }
 
 }
 
@@ -279,6 +293,7 @@ function animation(displayText, name) {
 function keyPressed() {
     if (keyCode === "P".charCodeAt(0) && !paused) {
         song.pause();
+        poem.pause();
         morse_sound.pause();
         pause();
         console.log("paused");
