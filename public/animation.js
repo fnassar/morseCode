@@ -122,7 +122,7 @@ async function draw() {
         // setTimeout(pause, 10000);
         next_message = await update_message();
         messageMorse = convertToMorse(next_message.post);
-        delete_message(next_message._id);
+        delete_message(next_message._id, next_message.email);
         dispImg();
     } else {
         animation(messageMorse, next_message.name);
@@ -221,8 +221,11 @@ async function update_message() {
     }
 }
 
-async function delete_message(id) {
+async function delete_message(id, email) {
     try {
+        if (email === "default") {
+            return;
+        }
         const response = await fetch("/message/" + id, {
             method: "DELETE",
         });
