@@ -1,5 +1,12 @@
 # Love is the Universal Language | Documentation
 
+## Final Presentation
+![Animation Video with Voice Over](https://www.youtube.com/watch?v=O0EYutk1-MQ)
+![Anumation and Setup]()
+![Sample Love Story Output]()
+
+
+
 ### Group Members:
   - Fatema Nassar
   - Genie Hou
@@ -14,9 +21,4 @@ The Louvre Museum in Abu Dhabi hosted a University take over the musium challeng
 The animation on p5js was our first step. Part of our prototype. We did it so we can visualise what our project was and how to work with it, an animation of a spiral morsecode that uses an input text, translates the letters to equivalent latin morse code characters. We just added the name of the user input later on to help the user identify their morse code outputs.
 #### Background Image:
 We
-![animation screenshot image]()
 
-### Backend
-
-
-## Setup:
